@@ -4,19 +4,13 @@
 #include <HTTPClient.h>
 #include <WiFiClientSecure.h>
 #include <esp_wifi.h>
+#include "config.h" // Loads Wifi and Discord credentials
 
-// --- Configuration ---
 
-const char* ssid = "YOUR_WIFI_SSID";
-const char* password = "YOUR_WIFI_PASSWORD";
-const char* botToken = "YOUR_DISCORD_BOT_TOKEN";
-const char* BotUsername = "YourBotUsername";
-const char* imageLibraryChannelId = "Your_channel_with_saved_images_ID_here"; 	//alternatively, jump to !pic command 
-										//and set the ID string there directly to save memory
 
 WebSocketsClient webSocket;
 unsigned long lastHeartbeat = 0;
-unsigned long heartbeatInterval = 40000; // Fallback default (Discord explicitly sends this value on connect)
+unsigned long heartbeatInterval = 40000;
 bool authenticated = false;
 int lastSequenceNumber = 0;
 WiFiClientSecure secureClient;
@@ -55,7 +49,7 @@ void sendRandomImageFromChannel(String sourceChannelId, String destinationChanne
     HTTPClient http;
     
     // Request the last 50 messages from the source channel
-    //String url = "https://discord.com/api/v10/channels/" + sourceChannelId + "/messages?limit=50";
+    //String url = "https://discord.com" + sourceChannelId + "/messages?limit=50"
     
     http.begin(secureClient, String("https://discord.com/api/v10/channels/" + sourceChannelId + "/messages?limit=50"));
     http.addHeader("Authorization", "Bot " + String(botToken));
@@ -233,7 +227,8 @@ void webSocketEvent(WStype_t type, uint8_t * payload, size_t length) {
                         }
                         else if (String(content).equalsIgnoreCase("!pic")) {
                             // Fetches a random image from the library and sends it back to the active channel
-                            sendRandomImageFromChannel(imageLibraryChannelId, channelId);
+                            //sendRandomImageFromChannel(imageLibraryChannelId, channelId);
+                            sendRandomImageFromChannel(SourceID, channelId);
                         }
                     }
                 }
