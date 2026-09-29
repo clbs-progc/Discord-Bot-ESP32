@@ -64,5 +64,9 @@ You can also check the Serial Monitor by changing the value of the baud rate. Th
 
 if you plan on modifying and pushing it to public, ensure `config.h` is added to `.gitignore`.
 
+## 📄 License
+
+This project is open-source and available under the [MIT License](LICENSE)
+
 
 
