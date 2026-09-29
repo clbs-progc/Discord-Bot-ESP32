@@ -13,7 +13,6 @@ This is an open source, lightweight project to host a Discord Bot on a ESP32.
 
 For this project, it is highly recommended you use Arduino IDE and install the ESP32 Development board for the following libraries:
 * `WiFi.h`
-* `HTTPClient.h`
 * `WiFiClientSecure.h`
 * `esp_wifi.h`
 
